@@ -25,11 +25,8 @@ def call_llm(
     Call the configured LLM provider. Defaults to the Nvidia API (google/gemma-3n-e2b-it).
     """
     # ── 1. Nvidia API (Primary Choice) ────────────────────────────────────────
-    # Try loading key from environment, default to the key provided by the user
-    nvidia_key = os.environ.get(
-        "NVIDIA_API_KEY", 
-        "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"
-    )
+    # Try loading key from environment
+    nvidia_key = os.environ.get("NVIDIA_API_KEY")
     
     if nvidia_key:
         invoke_url = "https://integrate.api.nvidia.com/v1/chat/completions"
@@ -74,6 +71,7 @@ def call_llm(
     gemini_key = os.environ.get("GEMINI_API_KEY")
     if gemini_key:
         try:
+            # pyrefly: ignore [missing-import]
             import google.generativeai as genai
             genai.configure(api_key=gemini_key)
             
